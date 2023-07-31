@@ -15,7 +15,7 @@
     </style>
 
 <div class="card">
-  <div class="card-header"><b>EDIT STORE </b>
+  <div class="card-header"><b>EDIT STOCK </b>
 
   </div>
   <div class="card-body">
