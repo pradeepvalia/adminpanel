@@ -73,6 +73,32 @@
 
 
           </li>
+            <li class="nav-item has-treeview menu-open category-menu">
+                <a href="javascript:void(0)" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Stock
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item ">
+                        <a href="{{ url('admin/stock/list') }}" class="nav-link list-category">
+                            <i class="fas fa-align-justify"></i>
+                            <p>List</p>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('stock.add') }}" class="nav-link">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            <p>Add</p>
+                        </a>
+                    </li>
+                </ul>
+
+
+            </li>
 
             <li class="nav-item has-treeview menu-open">
             <a class="nav-link " href="{{ route('logout') }}" onclick="event.preventDefault();

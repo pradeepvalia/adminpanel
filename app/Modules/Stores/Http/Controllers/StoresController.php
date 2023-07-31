@@ -31,17 +31,16 @@ class StoresController extends Controller
         $request->validate([
             'name' => 'required ',
             'address' => 'required',
-            'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+
         ]);
 
         $stores = new Stores();
         $stores->name = $request->name;
         $stores->address = $request->address;
-        $stores->country = $request->country;
-        $stores->state = $request->state;
-        $stores->city = $request->city;
+        $stores->latitude = $request->latitude;
+        $stores->longitude = $request->longitude;
         $stores->save();
         return back()->with('success', ' successfully Added!');
         $data = Stores::all();
@@ -60,16 +59,16 @@ class StoresController extends Controller
         $request->validate([
             'name' => 'required ',
             'address' => 'required',
-            'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+
         ]);
         $stores = Stores::find($id);
         $stores->name = $request->name;
         $stores->address = $request->address;
-        $stores->country = $request->country;
-        $stores->state = $request->state;
-        $stores->city = $request->city;
+        $stores->latitude = $request->latitude;
+        $stores->longitude = $request->longitude;
+
         $stores->update();
         return redirect('admin/stores/list');
         $data = Stores::all();

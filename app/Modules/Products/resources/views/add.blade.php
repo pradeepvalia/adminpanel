@@ -34,23 +34,11 @@
         <input type="number" name="price" value="" id="price" class="form-control">
         <span style="color: red">@error('price'){{$message}}@enderror</span><br>
 
-        <label>Stock</label><br>
-        <input type="number" name="stock" value="" id="stock" class="form-control">
-        <span style="color: red">@error('stock'){{$message}}@enderror</span><br>
-
           <label>UPC</label><br>
           <input type="number" name="upc" value="" id="upc" class="form-control">
           <span style="color: red">@error('upc'){{$message}}@enderror</span><br>
 
-          <label>Store</label><br>
-          <select class="form-select form-control" aria-label="select" name="store_id" id="store_id">
-              <span style="color: red">@error('store_id'){{$message}}@enderror</span></br>
-              <option value="">--Select Store--</option>
-              @foreach ($store as $item )
-                  <option value="{{$item ->id}}">{{$item ->name}}</option>
-              @endforeach
-          </select>
-          </br>
+
 
         <input type="submit" value="Save" class="btn btn-success">
 
@@ -82,12 +70,7 @@
                     maxlength:12,
 
                 },
-                stock:{
-                    required:true,
-                },
-                store_id:{
-                    required:true,
-                },
+
 
             },
             messages:{
@@ -104,14 +87,7 @@
                 maxlength:'The UPC May Not Be Greater Than 12 Digit.',
 
             },
-            stock: {
-                required: ' Enter The Stock !!',
 
-            },
-                store_id: {
-                    required: ' Select The Store !!',
-
-                },
 
             },
         });

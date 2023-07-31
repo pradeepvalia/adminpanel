@@ -10,6 +10,9 @@
         </div>
     @endif
     <style>
+        #map {
+            height: 400px;
+        }
         .error {
             color: #dc3545;
             font-weight: 700;
@@ -35,30 +38,15 @@
         <input type="text" name="address" value="" id="address" class="form-control">
         <span style="color: red">@error('address'){{$message}}@enderror</span><br>
 
-        <label>Country</label><br>
-          <select class="form-select form-control" aria-label="select" name="country" id="country">
-              <option value="">--Select Country--</option>
-                  <option value="India">India</option>
-          </select>
-        <span style="color: red">@error('country'){{$message}}@enderror</span><br>
+          <div id="map"></div>
 
-          <label>State</label><br>
-          <select class="form-select form-control" aria-label="select" name="state" id="state">
-              <option value="">--Select State--</option>
-                  <option value="Gujarat">Gujarat</option>
+          <label>latitude</label><br>
+          <input type="text" name="latitude" id="latitude" value="" class="form-control">
+         <br>
 
-          </select>
-          <span style="color: red">@error('state'){{$message}}@enderror</span><br>
-
-          <label>City</label><br>
-          <select class="form-select form-control" aria-label="select" name="city" id="city">
-              <option value="">--Select State--</option>
-              <option value="Vadodara">Vadodara</option>
-              <option value="Rajkot">Rajkot</option>
-              <option value="Ahmedabad">Ahmedabad</option>
-          </select>
-          <span style="color: red">@error('city'){{$message}}@enderror</span><br>
-
+          <label>longitude</label><br>
+          <input type="text" name="longitude" id="longitude" value="" class="form-control">
+         <br>
          <br>
 
 
@@ -73,7 +61,40 @@
 <script src="{{asset('resources/assets/common/js/jquery.validate.min.js')}}"></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js')}}" ></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js')}}" ></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4NT9t8dRpdkED_554TgmedZGrsKteSS4&callback=initMap"
+        type="text/javascript"></script>
 <script>
+
+
+        let map;
+        function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 19.385218425469912, lng: 72.84696741498203 },
+            zoom: 8,
+            scrollwheel: true,
+        });
+
+        const uluru = { lat: 19.385218425469912, lng: 72.84696741498203 };
+        let marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+        draggable: true
+    });
+
+        google.maps.event.addListener(marker,'position_changed',
+        function (){
+        let lat = marker.position.lat()
+        let lng = marker.position.lng()
+        $('#latitude').val(lat)
+        $('#longitude').val(lng)
+    })
+
+        google.maps.event.addListener(map,'click',
+        function (event){
+        pos = event.latLng
+        marker.setPosition(pos)
+    })
+    }
 
         $(document).ready(function(){
         $("#form").validate({
@@ -86,18 +107,10 @@
                 address:{
                     required:true,
                 },
-                country:{
+                coordinates:{
                     required:true,
                 },
-                state:{
-                    required:true,
-                },
-                city:{
-                    required:true,
-                },
-                pincode:{
-                    required:true,
-                },
+
             },
             messages:{
             name: {
@@ -108,17 +121,9 @@
                 required: 'Enter The address !!',
 
             },
-                country:{
-                    required:' Select the Country !!',
+                coordinates:{
+                    required:' Select the Location !!',
                 },
-                state:{
-                    required:' Select the State !!',
-                },
-                city:{
-                    required:' Select the City !!',
-                },
-
-
             },
         });
     });

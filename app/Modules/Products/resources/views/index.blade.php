@@ -21,9 +21,7 @@
                         <th> id </th>
                         <th>Product Name</th>
                         <th>Price</th>
-                        <th>Stock</th>
                         <th>UPC</th>
-                        <th>Store</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -36,9 +34,7 @@
                             <td>{{ $col->id }}</td>
                             <td id="title-{{ $col->id }}">{{ $col->name }}</td>
                             <td>{{ $col->price }}</td>
-                            <td>{{ $col->stock }}</td>
                             <td>{{ $col->upc }}</td>
-                            <td>{{ $col->store->name }}</td>
                             <td>
                                 <div>
 

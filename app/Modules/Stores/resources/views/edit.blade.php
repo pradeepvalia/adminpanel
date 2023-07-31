@@ -2,6 +2,9 @@
 
 @section('maincontent')
     <style>
+        #map {
+            height: 400px;
+        }
         .error {
             color: #dc3545;
             font-weight: 700;
@@ -30,29 +33,19 @@
         <span style="color: red">@error('address'){{$message}}@enderror</span><br>
 
 
-        <label>Country</label><br>
-      <select class="form-control select2" name="country">
-              <option value="{{$stores->country}}">{{$stores->country}}</option>
-      </select>
-        <span style="color: red">@error('country'){{$message}}@enderror</span><br>
+      <div id="map"></div>
 
-      <label>State</label><br>
-      <select class="form-control select2" name="state">
-          <option value="{{$stores->state}}">{{$stores->state}}</option>
-      </select>
-      <span style="color: red">@error('state'){{$message}}@enderror</span><br>
+      <label>latitude</label><br>
+      <input type="text" name="latitude" id="latitude" value="{{ $stores->latitude }}" class="form-control">
+      <br>
 
-      <label>City</label><br>
-      <select class="form-control select2" name="city">
-          <option value="{{$stores->city}}">{{$stores->city}}</option>
-          <option value="Vadodara">Vadodara</option>
-          <option value="Rajkot">Rajkot</option>
-          <option value="Ahmedabad">Ahmedabad</option>
-      </select>
-      <span style="color: red">@error('city'){{$message}}@enderror</span><br>
+      <label>longitude</label><br>
+      <input type="text" name="longitude" id="longitude" value="{{ $stores->longitude }}" class="form-control">
+      <br>
+      <br>
 
 
-        <input type="submit" value="upadte" class="btn btn-success">
+      <input type="submit" value="upadte" class="btn btn-success">
     </form>
 
   </div>
@@ -62,8 +55,40 @@
     <script src="{{asset('resources/assets/common/js/jquery.validate.min.js')}}"></script>
     <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js')}}" ></script>
     <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js')}}" ></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4NT9t8dRpdkED_554TgmedZGrsKteSS4&callback=initMap"
+            type="text/javascript"></script>
     <script>
 
+
+        let map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat:{{ $stores->latitude }}, lng: {{ $stores->longitude }} },
+                zoom: 8,
+                scrollwheel: true,
+            });
+
+            const uluru = { lat: {{ $stores->latitude }}, lng:{{ $stores->longitude }} };
+            let marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker,'position_changed',
+                function (){
+                    let lat = marker.position.lat()
+                    let lng = marker.position.lng()
+                    $('#latitude').val(lat)
+                    $('#longitude').val(lng)
+                })
+
+            google.maps.event.addListener(map,'click',
+                function (event){
+                    pos = event.latLng
+                    marker.setPosition(pos)
+                })
+        }
         $(document).ready(function(){
             $("#form").validate({
                 ignore: [],

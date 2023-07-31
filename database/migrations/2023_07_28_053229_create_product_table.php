@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('product', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('store_id')->references('id')->on('stores')->cascadeOnDelete();
             $table->string('name');
             $table->string('upc')->unique();
             $table->decimal('price', 10, 2);
-            $table->integer('stock')->default(0);
+
             $table->timestamps();
         });
     }

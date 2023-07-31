@@ -15,22 +15,24 @@
                 <thead>
                     <tr>
                         <th>Sr.No </th>
-                        <th>Name</th>
-                        <th>Address</th>
+                        <th>Store</th>
+                        <th>Product</th>
+                        <th>Stock</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($stores as $col)
+                    @foreach ($stock as $col)
                         <tr>
                             <td>{{ $col->id }}</td>
-                            <td id="title-{{ $col->id }}">{{ $col->name }}</td>
-                            <td>{{ $col->address }}</td>
+                            <td >{{ $col->store->name }}</td>
+                            <td>{{ $col->products->name }}</td>
+                            <td>{{ $col->stock }}</td>
                             <td>
                                 <div>
-                                    <a href="{{ url('/admin/stores/edit', [$col->id]) }}" class="edit"><i
+                                    <a href="{{ url('/admin/stock/edit', [$col->id]) }}" class="edit"><i
                                             class="fas fa-pencil-alt"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="{{ url('/admin/stores/destroy',[$col->id]) }}"class="delete" ><i class="fas fa-trash-alt"></i></a>
+                                    <a href="{{ url('/admin/stock/destroy',[$col->id]) }}"class="delete" ><i class="fas fa-trash-alt"></i></a>
 
                                 </div>
                             </td>

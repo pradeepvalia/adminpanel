@@ -33,21 +33,10 @@
         <span style="color: red">@error('price'){{$message}}@enderror</span><br>
 
 
-        <label>Stock</label><br>
-        <input type="text"  value="{{ $product->stock }}" name="stock" id="stock" class="form-control">
-        <span style="color: red">@error('stock'){{$message}}@enderror</span><br>
-
       <label>UPC</label><br>
       <input type="text"  value="{{ $product->upc }}" name="upc" id="upc" class="form-control">
       <span style="color: red">@error('upc'){{$message}}@enderror</span><br>
 
-      <label>Store</label><br>
-      <select class="form-control select2" name="store_id">
-          @foreach($store as $stores)
-                  <option value="{{$stores->id}}">{{$stores->name}}</option>
-          @endforeach
-      </select>
-      <span style="color: red">@error('store_id'){{$message}}@enderror</span><br>
 
       <br>
 
@@ -80,12 +69,6 @@
                         maxlength:12,
 
                     },
-                    stock:{
-                        required:true,
-                    },
-                    store_id:{
-                        required:true,
-                    },
 
                 },
                 messages:{
@@ -100,14 +83,6 @@
                     upc: {
                         required: 'Enter The UPC !!',
                         maxlength:'The UPC May Not Be Greater Than 12 Digit.',
-
-                    },
-                    stock: {
-                        required: ' Enter The Stock !!',
-
-                    },
-                    store_id: {
-                        required: ' Select The Store !!',
 
                     },
 

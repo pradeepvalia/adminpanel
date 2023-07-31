@@ -34,16 +34,12 @@ class ProductsController extends Controller
         $request->validate([
             'name'=>'required',
             'price'=>'required | numeric',
-            'stock'=>'required |numeric',
             'upc'=>'required |min:12',
-            'store_id'=>'required',
         ]);
         $product = new Products();
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->stock = $request->stock;
         $product->upc = $request->upc;
-        $product->store_id = $request->store_id;
         $product->save();
         return back()->with('success', ' successfully Added!');
         $data = Products::all();
@@ -65,16 +61,12 @@ class ProductsController extends Controller
         $request->validate([
             'name'=>'required',
             'price'=>'required | numeric',
-            'stock'=>'required |numeric',
             'upc'=>'required |min:12',
-            'store_id'=>'required',
         ]);
         $product = Products::find($id);
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->stock = $request->stock;
         $product->upc = $request->upc;
-        $product->store_id = $request->store_id;
         $product->update();
         return redirect('admin/product/list');
         $data = Products::all();
